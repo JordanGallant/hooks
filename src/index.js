@@ -4,26 +4,21 @@ import "./index.css";
 //import App from './App';
 import reportWebVitals from "./reportWebVitals";
 import { useState } from "react";
-import {FaStar} from "react-icons/fa"
+import { FaStar } from "react-icons/fa";
 
-const  createArray = (length) => [
-  ...Array(length)
-]
+const createArray = (length) => [...Array(length)];
 
-function Star() {
-return <FaStar/>
- 
+function Star({ selected = false, onSelect }) {
+  return <FaStar color={selected ? "gold" : "gray"} onClick= {onSelect}/>;
 }
 
-function StarRating(){
-  
-  return createArray(5).map((n,i)=>(<Star key = {i}/>))
-  
+function StarRating({ totalStars = 5 }) {
+  const [selectedStars, setSelectedStars] = useState(0);
+  return createArray(totalStars).map((n, i) => <Star key={i} selected = {selectedStars > i} onSelect ={()=> setSelectedStars(i +1)}/>);
 }
 
 function App() {
-  
-  return <StarRating/>;
+  return <StarRating totalStars={10} />;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
